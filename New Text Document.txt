@@ -1,0 +1,146 @@
+npm install @headlessui/react =====>dropDown elements
+npm install cloudinary =====> package to upload and delete images
+npm install jsonwebtoken @types/jusonwebtoken ============>auth
+npm istall graphql-request ======>graphql actions
+npm install next-auth ============>auth
+npm install @grafbase/sdk =======>helps developer ship graphql APIS faster //connect api, database, microservices and deploy to production in mins
+
+================================================================================================================================
+1)))make app folder ====>{
+favicon
+api folder
+page.tsx
+layout.tsx
+global.css
+}
+
+2)))make public folder =====>{
+include assets
+}
+
+3)))make components folder
+
+4)))common.types.ts file
+
+==================================================================================================================================
+in layout.tsx file
+<html>
+  <body>
+     NavBar
+     {children} ====> refer to page.tsx file
+     Footer
+  </body>
+</html>
+=================================================================================================================================
+
+to setup grafbase in your ptoject
+npx grafbase init 
+grafbase.config.ts  file
+
+=================================================================================================================================
+1))))next-auth setup
+[[[[[[[[[[[[[[lib===>session.ts]]]]]]]]]]]]] file 
+import {getServerSession} from next-auth/next
+import {NextAuthOption,User} from 'next-auth'
+import { AdapterUser} from 'next-auth/adapters'
+import GoogleProvider from 'next-auth/providers/google'
+import jsonwebtoken from 'jsonwebtoken'
+import {jwt} from 'next-auth/jwt'
+=====================================
+2)))next-auth function
+const authOptions:NextAuthOption ={
+providers : [
+GoogleProvider({
+clientId:
+clientSecret:
+})
+]
+
+jwt:{
+encode: ({secret,token}){
+}
+decode:async ({secret,token}){
+}
+}
+
+theme:{
+colorScheme:'light',
+logo:'/logi.png'
+}
+
+callbacks :{
+async session({session}){
+}
+async signIn({user};{AdapterUser|User}){
+try{
+//user exit
+//not exist
+eturn false
+}
+catch(error){
+console.log(error)
+}
+}
+}
+
+
+//to return current session
+export async function getCurrentSession (){
+     const session= await getCurrentSession(authOptions) as SessionInterface
+     return session
+ }
+========================================
+3)))in app=>api=>auth=>[...nextauth]=>route.ts
+import NextAuth from 'next-auth'
+import {authOptions} from '../lib/session'
+connst handler = NextAuth(authOption);
+export {handler as GET,handler as POST}
+================================================================================================================================
+console.cloud.google.com
+navigation menu  ==>  api services==>oauth consent screen ===>go to steps
+credentials  ===> create credebtials ===> oauth clien id ===>web application ===>http://localhost:3000 ===>http://localhost:3000/api/auth/callback/google
+copy client id and client secret
+==============================================================================================================================
+1)))))make auth in grafbase
+const jwt=auth.JWT({
+issuer:'grafbase',
+secret:g.env('NEXTAUTH_SECRET')
+})
+
+2)))open cryptool online openssl
+openssl rand -base64 32 ====} A/f/pbn/l7NiCliPr9OS2SzmoACxvpQBF62rDHTP1KA= put it inside .env inside grafbase folder
+
+3)))
+config it in 
+config({
+auth:{
+providers:[jwt],
+rules:(rules)=>{
+rules.private()
+}
+
+
+}
+})
+
+===================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+registry=https://registry.npmjs.org/
