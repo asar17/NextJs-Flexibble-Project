@@ -13,10 +13,10 @@ const g = graph.Standalone()
 
 // Resolvers - https://grafbase.com/docs/resolvers
 //
-g.query('helloWorld', {
-  returns: g.string(),
-  resolver: 'hello-world',
-})
+// g.query('helloWorld', {
+//   returns: g.string(),
+//   resolver: 'hello-world',
+// })
 
 export default config({
   graph: g,
