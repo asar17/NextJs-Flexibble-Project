@@ -9,7 +9,7 @@ const g = graph.Standalone()
 
 const mongodb = connector.MongoDB('MongoDB', {
   url: 'https://eu-central-1.aws.data.mongodb-api.com/app/data-gtnfs/endpoint/data/v1',
-  apiKey: 'SECRET',
+  apiKey: 'R0FG4HZQxls3GNzULCOUj2fHrcWIb4kri8EQOJT3u2iiQPDzwzIMo3cladhriGg5',
   dataSource: 'Cluster0',
   database: 'database_flex',
 })
