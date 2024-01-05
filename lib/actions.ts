@@ -18,14 +18,14 @@ const makeGraphQLRequest = async(query:string,variables={}) => {
 
 }
 export const getUser = (email:string,id:string) =>{
-    client.setHeader('x-api-key','R0FG4HZQxls3GNzULCOUj2fHrcWIb4kri8EQOJT3u2iiQPDzwzIMo3cladhriGg5')
+    client.setHeader('api-key','R0FG4HZQxls3GNzULCOUj2fHrcWIb4kri8EQOJT3u2iiQPDzwzIMo3cladhriGg5')
     //client.setHeader("Authorization", `Bearer ${id}`);
     console.log('client',client)
     return makeGraphQLRequest(getUserQuery,{email});
 }
 
 export const createUser = (name:string,email:string,avatarUrl:string,id:string) =>{
-    client.setHeader('x-api-key','R0FG4HZQxls3GNzULCOUj2fHrcWIb4kri8EQOJT3u2iiQPDzwzIMo3cladhriGg5')
+    client.setHeader('api-key','R0FG4HZQxls3GNzULCOUj2fHrcWIb4kri8EQOJT3u2iiQPDzwzIMo3cladhriGg5')
     //client.setHeader("Authorization", `Bearer ${id}`);
 
     const variables= {
