@@ -8,7 +8,7 @@ const g = graph.Standalone()
 
 
 const mongodb = connector.MongoDB('MongoDB', {
-  url: 'https://eu-central-1.aws.data.mongodb-api.com/app/data-gtnfs/endpoint/data/v1',
+  url: 'mongodb://atlas-sql-659763ea7dc99a684b468386-dsnks.a.query.mongodb.net/myVirtualDatabase?ssl=true&authSource=admin',
   apiKey: 'SECRET',
   dataSource: 'Cluster0',
   database: 'database_flex',
