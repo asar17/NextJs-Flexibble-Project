@@ -9,9 +9,9 @@ const g = graph.Standalone()
 
 const mongodb = connector.MongoDB('MongoDB', {
   url: 'mongodb+srv://aelhaidary2019:789000@cluster0.ehpiiw6.mongodb.net/',
-  apiKey: 'SECRET',
-  dataSource: 'myDatasource',
-  database: 'myVirtualDatabase',
+  apiKey: 'grafbase',
+  dataSource: 'Cluster0',
+  database: 'database_flex',
 })
 
 g.datasource(mongodb)
