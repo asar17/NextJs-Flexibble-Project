@@ -7,9 +7,9 @@ const serverURL= isProduction? process.env.NEXT_PUBLIC_SERVER_URL : 'http://loca
 const client= new GraphQLClient(apiURL)
 
 
-const makeGraphQLRequest = (query:string,variables={}) => {
+const makeGraphQLRequest = async(query:string,variables={}) => {
     try{
-        return client.request(query,variables)
+        return await client.request(query,variables)
     }
     catch(error){
         throw error
@@ -17,12 +17,12 @@ const makeGraphQLRequest = (query:string,variables={}) => {
 
 }
 export const getUser = (email:string) =>{
-    client.setHeader('x-api-key',apiKEY)
+    client.setHeader('x-api-key','SECRET')
     return makeGraphQLRequest(getUserQuery,{email});
 }
 
 export const createUser = (name:string,email:string,avatarUrl:string) =>{
-    client.setHeader('x-api-key',apiKEY)
+    client.setHeader('x-api-key','SECRET')
     const variables= {
         input:{
             name:name,
