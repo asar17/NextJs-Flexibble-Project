@@ -3,6 +3,9 @@ import Image from 'next/image'
 import {NavLinks} from '../constant/index'
 import AuthProviders from './AuthProviders'
 import { getCurrentUser } from '../lib/session';
+import { getClient } from "@/lib/client";
+//const { data } = await getClient().query({ query });
+
 const Navbar = async () => {
     const session= await getCurrentUser();
     console.log('session user',session?.user)

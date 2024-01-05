@@ -1,31 +1,33 @@
+import { gql } from "@apollo/client";
 export const getUserQuery =`
 query GetUser($email:String!){
+  mongoDB{
     user(by:{email:$email}){
         id 
         name
         avatarUrl
+        description
         githubUrl
-        linkedInUrl
+        linkedinUrl
         description
     }
-
+  }
 }
 `;
 
 export const createUserMutation=`
-mutation CreateUser($input:UserCreateInput!){
-    userCreate(input:$input){
-        user{
-            name
-            email
-            avatarUrl
-            linkedInUrl
-            githubUrl
-            id
-            description
-        }
-
+mutation CreateUser($input:UserCreateInput!) {
+    mongoDB {
+      userCreate(input: $input) {
+        name
+        email
+        avatarUrl
+        linkedinUrl
+        githubUrl
+        id
+        description
+        
+      }
     }
-
-}
+  }
 `

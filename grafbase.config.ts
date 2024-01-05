@@ -1,4 +1,4 @@
-import { graph, connector, config } from '@grafbase/sdk'
+import { graph,auth, connector, config } from '@grafbase/sdk'
 
 // Welcome to Grafbase!
 //
@@ -8,14 +8,13 @@ const g = graph.Standalone()
 
 
 const mongodb = connector.MongoDB('MongoDB', {
-  url: 'mongodb+srv://aelhaidary2019:789000@cluster0.ehpiiw6.mongodb.net/',
+  url: 'https://eu-central-1.aws.data.mongodb-api.com/app/data-gtnfs/endpoint/data/v1',
   apiKey: 'grafbase',
   dataSource: 'Cluster0',
   database: 'database_flex',
 })
 
 g.datasource(mongodb)
-
 
 
 // @ts-ignore
@@ -43,7 +42,16 @@ const user=mongodb.model('User', {
 
   }) .collection('user')
 
+const jwt=auth.JWT({
+  issuer:'grafbase',
+  secret:'A/f/pbn/l7NiCliPr9OS2SzmoACxvpQBF62rDHTP1KA='
+})
+
 export default config({
   graph: g,
+  auth:{
+    providers:[jwt],
+    rules:(rules)=> rules.private()
+  }
 
 })

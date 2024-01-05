@@ -3,7 +3,7 @@ import { NextAuthOptions ,User } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import {AdapterUser} from 'next-auth/adapters'
 import jsonwebtoken from 'jsonwebtoken'
-//import { jwt } from 'next-auth/jwt'
+import { JWT } from 'next-auth/jwt'
 import { SessionInterface, UserProfile } from '../common.types'
 import { createUser, getUser } from './actions'
 
@@ -14,15 +14,24 @@ export const authOptions : NextAuthOptions={
             clientSecret:process.env.GOOGLE_CLIENT_SECRET!
         }),
     ],
-    // jwt : {
-    //     encode :({secret,token}){
+    jwt : {
+        encode: ({ secret, token }) => {
+            const encodedToken = jsonwebtoken.sign(
+              {
+                ...token,
+                iss: "grafbase",
+                exp: Math.floor(Date.now() / 1000) + 60 * 60,
+              },
+              secret
+            );
             
-    //     }
-    //     decode : async({secret,tokem}){
-           
-
-    //     }
-    // }
+            return encodedToken;
+          },
+          decode: async ({ secret, token }) => {
+            const decodedToken = jsonwebtoken.verify(token!, secret);
+            return decodedToken as JWT;
+          },
+    },
     theme:{
         colorScheme:'light',
         logo:'/logo.svg'
@@ -37,15 +46,16 @@ export const authOptions : NextAuthOptions={
                 const userExits= await getUser(user?.email as string) as {user?:UserProfile}
                 //if the user not exits and create user for the first time
                 if(!userExits){
-                  //await  createUser(user?.name as string, user?.email as string, user?.image as string)
+                  await  createUser(user?.name as string, user?.email as string, user?.image as string)
                   console.log('user exits',userExits)
 
                 }
-                console.log('user',user)
                 return true;
             }
             catch(error:any){
                 console.log("Error checking if user exists: ", error.message);
+                console.log('user',user)
+
                 return false;
 
             }
