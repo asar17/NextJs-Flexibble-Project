@@ -43,10 +43,10 @@ export const authOptions : NextAuthOptions={
         async signIn ({user}:{ user: AdapterUser | User }){
             try{
                 //if the user exits
-                const userExits= await getUser(user?.email as string) as {user?:UserProfile}
+                const userExits= await getUser(user?.email as string, user?.id as string) as {user?:UserProfile}
                 //if the user not exits and create user for the first time
                 if(!userExits){
-                  await  createUser(user?.name as string, user?.email as string, user?.image as string)
+                  await  createUser(user?.name as string, user?.email as string, user?.image as string, user?.id as string)
                   console.log('user exits',userExits)
 
                 }
