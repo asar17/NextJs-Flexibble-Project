@@ -34,13 +34,14 @@ export const authOptions : NextAuthOptions={
         async signIn ({user}:{ user: AdapterUser | User }){
             try{
                 //if the user exits
-               // const userExits= await getUser(user?.email as string) as {user?:UserProfile}
+                const userExits= await getUser(user?.email as string) as {user?:UserProfile}
                 //if the user not exits and create user for the first time
-               // if(!userExits.user){
-                const userExits=  await  createUser(user?.name as string, user?.email as string, user?.image as string)
-                //}
+                if(!userExits){
+                  //await  createUser(user?.name as string, user?.email as string, user?.image as string)
+                  console.log('user exits',userExits)
+
+                }
                 console.log('user',user)
-                console.log('user exits',userExits)
                 return true;
             }
             catch(error:any){

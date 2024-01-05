@@ -18,7 +18,7 @@ const makeGraphQLRequest = (query:string,variables={}) => {
 }
 export const getUser = (email:string) =>{
     client.setHeader('x-api-key',apiKEY)
-    return makeGraphQLRequest(getUserQuery,{email})
+    return makeGraphQLRequest(getUserQuery,{email});
 }
 
 export const createUser = (name:string,email:string,avatarUrl:string) =>{
