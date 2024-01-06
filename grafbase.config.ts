@@ -1,4 +1,5 @@
 import { graph, auth, connector, config } from '@grafbase/sdk'
+import { url } from 'inspector'
 
 // Welcome to Grafbase!
 //
@@ -9,7 +10,7 @@ const g = graph.Standalone()
 
 const mongodb = connector.MongoDB('MongoDB', {
   url: 'https://eu-central-1.aws.data.mongodb-api.com/app/data-gtnfs/endpoint/data/v1',
-  apiKey: 'R0FG4HZQxls3GNzULCOUj2fHrcWIb4kri8EQOJT3u2iiQPDzwzIMo3cladhriGg5',
+  apiKey: 'bHxFG1IWxaCMwZLZcUGoJlB4sbpTyBkag2wH5uBlhCSHDz3L8IKLtwaiLSdMUdee',
   dataSource: 'Cluster0',
   database: 'database_flex',
 })
@@ -17,7 +18,7 @@ const mongodb = connector.MongoDB('MongoDB', {
 g.datasource(mongodb)
 
 
-// @ts-ignore
+
 const project=mongodb.model('Project', {
       title: g.string().length({ min: 3 }),
       description: g.string(), 
@@ -27,10 +28,13 @@ const project=mongodb.model('Project', {
       category: g.string(),
       //.search(),
      //createdBy: g.ref(user),
-    }).collection('project')
+    }).collection('project').auth((rules) => {
+      rules.public().read()
+      rules.private().create().delete().update()
+    })
 
 
-// @ts-ignore
+
 const user=mongodb.model('User', {
       name: g.string().length({ min: 2, max: 100 }),
       email: g.string().unique(),
@@ -40,7 +44,9 @@ const user=mongodb.model('User', {
       linkedinUrl: g.url().optional(), 
       //projects: g.relation(()=>project).list().optional(),
 
-  }) .collection('user')
+  }) .collection('user').auth((rules) => {
+    rules.public().read()
+  })
 
 const jwt=auth.JWT({
   issuer:'grafbase',

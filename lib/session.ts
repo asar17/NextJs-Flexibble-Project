@@ -37,16 +37,34 @@ export const authOptions : NextAuthOptions={
         logo:'/logo.svg'
     },
     callbacks: {
-        async session ({session}){
-          return session
-         },
+        async session({ session }) {
+            const email = session?.user?.email as string;
+      
+            try { 
+              const data = await getUser(email) as { user?: UserProfile }
+      
+              const newSession = {
+                ...session,
+                user: {
+                  ...session.user,
+                  ...data?.user,
+                },
+              };
+              console.log('SESSION',newSession)
+      
+              return newSession;
+            } catch (error: any) {
+              console.error("Error retrieving user data: ", error.message);
+              return session;
+            }
+          },
         async signIn ({user}:{ user: AdapterUser | User }){
             try{
                 //if the user exits
-                const userExits= await getUser(user?.email as string, user?.id as string) as {user?:UserProfile}
+                const userExits= await getUser(user?.email as string) as {user?:UserProfile}
                 //if the user not exits and create user for the first time
-                if(!userExits){
-                  await  createUser(user?.name as string, user?.email as string, user?.image as string, user?.id as string)
+                if(!userExits.user){
+                  await  createUser(user?.name as string, user?.email as string, user?.image as string)
                   console.log('user exits',userExits)
 
                 }
@@ -55,6 +73,7 @@ export const authOptions : NextAuthOptions={
             catch(error:any){
                 console.log("Error checking if user exists: ", error.message);
                 console.log('user',user)
+
 
                 return false;
 

@@ -126,8 +126,7 @@ rules.private()
 ===================================================================================================================
 https://eu-central-1.aws.data.mongodb-api.com/app/data-gtnfs/endpoint/data/v1  endpoint
 
-jNLJpRmo5twRauidRWtbHXSwxi0D5LPWpqJBPg6g1P7jQs1PY70PjQaHLfmhxqSn  apikey grafbase
-R0FG4HZQxls3GNzULCOUj2fHrcWIb4kri8EQOJT3u2iiQPDzwzIMo3cladhriGg5  apikey secret
+bHxFG1IWxaCMwZLZcUGoJlB4sbpTyBkag2wH5uBlhCSHDz3L8IKLtwaiLSdMUdee  apikey grafbase
 
 
 
